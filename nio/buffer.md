@@ -58,3 +58,6 @@ aFile.close();
 
 ![](./pic/buffers-modes.png)
 
+参考：
+<br><http://tutorials.jenkov.com/java-nio/buffers.html>
+<br><http://ifeve.com/buffers/>
