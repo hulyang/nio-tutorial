@@ -8,3 +8,16 @@
 
 ![](./pic/overview-channels-buffers1.png)
 
+### channel 的实现类
+
+以下是 channel 在java NIO 中的最主要的几个实现类:
+- FileChannel
+- DatagramChannel
+- SocketChannel
+- ServerSocketChannel
+
+FileChannel 可用来对文件进行读写操作
+DatagramChannel 可通过 UDP 连接读写网络中数据
+SocketChannel 可通过 TCP 连接读写网络中数据
+ServerSocketChannel 可用像 web 服务那样，监听新进来的 TCP 连接，每当有新的 TCP 连接进来，就会为其创建一个新的 socketChannel 进行通信。
+
