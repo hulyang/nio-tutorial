@@ -54,5 +54,5 @@ channel 和 buffer 有好几种实现类型，下面 channel 在java NIO 中的�
 
 
 参考：
-<http://tutorials.jenkov.com/java-nio/overview.html>
-<http://ifeve.com/overview/>
+<br><http://tutorials.jenkov.com/java-nio/overview.html>
+<br><http://ifeve.com/overview/> 
