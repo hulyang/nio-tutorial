@@ -24,8 +24,8 @@
 channel 和 buffer 有好几种实现类型，下面 channel 在java NIO 中的一些主要实现:
 - FileChannel
 - DatagramChannel
-- ScoketChannel
-- ServerScoketChannel
+- SockentChannel
+- ServerSocketChannel
 
 如你所见，这部分 channel 涵盖了 UDP 及 TCP 网络IO，和文件IO。
 与这些实现类一起的还有些有趣的接口，为了让概述看起来简明，这里将不对这部分做更多的解释，而是在后续的其他部分中进行介绍。
