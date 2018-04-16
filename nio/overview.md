@@ -10,7 +10,7 @@
   
 其中核心部分为:
 
-  - channel		位于channels包下
+  - channel		位于channels包下
   - buffer		位于nio包下
   - seletor		位于channels包下
 
