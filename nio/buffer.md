@@ -87,7 +87,7 @@ java NIO 中提供了以下Buffer类型：
 - ShortBuffer
 
 如你所见，缓冲区(buffer)类型代表不同的数据类型，换句话说，就是可以通过byte|char|short|int|long|float|double类型来操作缓冲区中的字节。
-_MappedByteBuffer_ 有点特殊，再涉及到它的专门的章节中再做介绍。
+<br>_MappedByteBuffer_ 有点特殊，再涉及到它的专门的章节中再做介绍。
 
 
 
