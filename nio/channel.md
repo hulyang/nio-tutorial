@@ -7,7 +7,7 @@
 
 如上所述，你可将channel 中的数据读取到 buffer, 也可将 buffer 中的数据 写入到 channel , 下面是张很好的示例图:
 
-![](./pic/overview-channels-buffers1.png)
+![](./pic/overview-channels-buffers.png)
 
 ### channel 的实现类
 
