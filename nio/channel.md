@@ -22,3 +22,28 @@ DatagramChannel 可通过 UDP 连接读写网络中数据
 SocketChannel 可通过 TCP 连接读写网络中数据
 ServerSocketChannel 可用像 web 服务那样，监听新进来的 TCP 连接，每当有新的 TCP 连接进来，就会为其创建一个新的 socketChannel 进行通信。
 
+### channel 的基本示例
+
+以下是一个使用 FileChannel 将数据读取 到 Buffer 的简单示例:
+```
+  RandomAccessFile aFile = new RandomAccessFile("data/nio-data.txt", "rw");
+  FileChannel inChannel = aFile.getChannel(); // 获取Filechannel
+
+  ByteBuffer buf = ByteBuffer.allocate(48); // 创建一个ByteBuffer
+
+  int bytesRead = inChannel.read(buf);  // 从channel中读取数据到buffer
+  while (bytesRead != -1) {
+    System.out.println("Read " + bytesRead);
+    buf.flip(); // 将buffer切换到读的状态
+
+    while(buf.hasRemaining()){
+      System.out.print((char) buf.get()); // 读取buffer 中的数据
+    }
+
+    buf.clear(); // 清空buffer
+    bytesRead = inChannel.read(buf); 、
+  }
+  aFile.close();
+```
+
+这里注意 _buf.flip()_ 的调用，首先从 channel 中读取数据到 buffer ，再调用 flip() 去切换状态，然后才能读取 buffer 中缓存的数据，关于 buffer 的更多细节将在后续章节中进行介绍。
