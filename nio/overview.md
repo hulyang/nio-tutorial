@@ -53,4 +53,6 @@ channel 和 buffer 有好几种实现类型，下面 channel 在java NIO 中的�
 在同一个 selector 上，你可注册多个 channel ,然后你可以调用他的 select() 方法，这个方法将会阻塞，知道你注册的某个 channel 有事件准备就绪，一旦方法又返回，这个线程便可处理这些事件。关于事件的例子有:新连接的进来，数据接收等...
 
 
-参考：<http://ifeve.com/overview/>
+参考：
+<br><http://tutorials.jenkov.com/java-nio/overview.html>
+<br><http://ifeve.com/overview/> 
