@@ -47,3 +47,5 @@ ServerSocketChannel 可用像 web 服务那样，监听新进来的 TCP 连接�
 ```
 
 这里注意 _buf.flip()_ 的调用，首先从 channel 中读取数据到 buffer ，再调用 flip() 去切换状态，然后才能读取 buffer 中缓存的数据，关于 buffer 的更多细节将在后续章节中进行介绍。
+
+参考：<http://ifeve.com/channels/>
