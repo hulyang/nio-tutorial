@@ -1,8 +1,8 @@
 # NIO 教程目录
 
-### 1. [概述 Overview](./overview.md)
-### 2. [通道 Channel](./channel.md)
-### 3. [缓冲区 Buffer](./buffer.md)
+### 1. [Overview](./overview.md)
+### 2. [Channel](./channel.md)
+### 3. [Buffer](./buffer.md)
 ### 4.	[Scatter|Gather](./scatter&gather.md)
 ### 5.	[Channel to Channel Transfers](./channel2channel.md)
 ### 6.	[Selector](./selector.md)
