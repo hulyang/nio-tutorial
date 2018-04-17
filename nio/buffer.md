@@ -10,14 +10,14 @@
 - [Buffer 类型](#buffer-类型)
 - [Buffer 的分配](#buffer-的分配)
 - [Buffer 写操作](#buffer-写操作)
-- [flip() 方法](#flip()-方法)
+- [flip() 方法](#flip-方法)
 - [Buffer 读操作](#buffer-读操作)
-- [rewind() 方法](#rewind()-方法)
-- [clear() 和 compact() 方法](#clear()-和-compact()-方法)
-- [mark() 和 reset() 方法](#mark()-和-reset()-方法)
-- [equals() 和 compareTo() 方法](#equals()-和-compareto()-方法)
-  - [equals方法](#equals()-方法)
-  - [compareTo方法](#compareto()-方法)
+- [rewind() 方法](#rewind-方法)
+- [clear() 和 compact() 方法](#clear-和-compact-方法)
+- [mark() 和 reset() 方法](#mark-和-reset-方法)
+- [equals() 和 compareTo() 方法](#equals-和-compareto-方法)
+  - [equals 方法](#equals-方法)
+  - [compareTo 方法](#compareto-方法)
 
 java NIO 中的buffer是用来与NIO中的channel进行交互的。如你所知，数据可从channel读取到buffer，也可将buffer中的数据写入到channel。
 
