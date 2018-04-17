@@ -1,10 +1,7 @@
 # Buffer
 
-java NIO 中的buffer是用来与NIO中的channel进行交互的。如你所知，数据可从channel读取到buffer，也可将buffer中的数据写入到channel。
-
-buffer实际上就是一块你可以先写入数据，然后再从中读取数据的内存区域。这块内存区域被封装成了NIO Buffer对象，其提供了很多方法来方便你操作这块内存区域。
-
 目录
+- [buffer 简介](#buffer-简介)
 - [buffer 的基本使用](#buffer-的基本使用)
 - [buffer 的 capacity、position、limit、mark](#buffer-的-capacitypositionlimitmark)
   - [capacity](#capacity)
@@ -22,6 +19,14 @@ buffer实际上就是一块你可以先写入数据，然后再从中读取数�
 - [equals() 和 compareTo() 方法](#equals-和-compareto-方法)
   - [equals() 方法](#equals-方法)
   - [compareTo() 方法](#compareto-方法)
+
+### buffer 简介
+
+java NIO 中的buffer是用来与NIO中的channel进行交互的。如你所知，数据可从channel读取到buffer，也可将buffer中的数据写入到channel。
+
+buffer实际上就是一块你可以先写入数据，然后再从中读取数据的内存区域。这块内存区域被封装成了NIO Buffer对象，其提供了很多方法来方便你操作这块内存区域。
+
+
   
 ### buffer 的基本使用
 
