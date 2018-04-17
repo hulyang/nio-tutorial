@@ -21,6 +21,7 @@
   - buffer		位于nio包下
   - seletor		位于channels包下
 
+java NIO 除此之外还有很多的类和组件，但是在我看来channel、buffer、selector为java NIO API的核心。类似于pipe、fileLock 这样的其他组件只不过是连接这三个核心组件的工具类。因此，在概述中我们主要集中在这三个组件上，其他组件会在后续章节中讲到。
 
 ### Channel 和 Buffer
 
