@@ -1,9 +1,9 @@
 # Buffer
 
 目录
-- [buffer 简介](#buffer-简介)
-- [buffer 的基本使用](#buffer-的基本使用)
-- [buffer 的 capacity、position、limit、mark](#buffer-的-capacitypositionlimitmark)
+- [Buffer 简介](#buffer-简介)
+- [Buffer 的基本使用](#buffer-的基本使用)
+- [Buffer 的 capacity、position、limit、mark](#buffer-的-capacitypositionlimitmark)
   - [capacity](#capacity)
   - [position](#position)
   - [limit](#limit)
@@ -20,7 +20,7 @@
   - [equals() 方法](#equals-方法)
   - [compareTo() 方法](#compareto-方法)
 
-### buffer 简介
+### Buffer 简介
 
 java NIO 中的buffer是用来与NIO中的channel进行交互的。如你所知，数据可从channel读取到buffer，也可将buffer中的数据写入到channel。
 
@@ -28,7 +28,7 @@ buffer实际上就是一块你可以先写入数据，然后再从中读取数�
 
 
   
-### buffer 的基本使用
+### Buffer 的基本使用
 
 使用一个buffer去读写数据，通常分为以下4个小步骤：
 
@@ -65,7 +65,7 @@ while (bytesRead != -1) {
 aFile.close();
 ```
 
-### buffer 的 capacity、position、limit、mark
+### Buffer 的 capacity、position、limit、mark
 
 buffer实际上就是一块你可以先写入数据，然后再从中读取数据的内存区域。这块内存区域被封装成了NIO Buffer对象，其提供了很多方法来方便你操作这块内存区域。
 
@@ -142,7 +142,7 @@ CharBuffer buf = CharBuffer.allocate(1024);
 
 基本上分配方式都大同小异，在明确存储类型了调用相关类型Buffer的allocate()方法来获得相应类型的buffer即可。
 
-### buffer 写操作
+### Buffer 写操作
 
 你有两种方式将数据写入buffer
 
@@ -178,7 +178,7 @@ public final Buffer flip() {
 
 源码中明显看出clip()除了改变了limit和position，另外将mark重新设置为了-1(即无标记位置的状态)
 
-### buffer 读操作
+### Buffer 读操作
 
 同样也有两种方式从buffer中读取数据：
 
