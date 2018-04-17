@@ -21,7 +21,7 @@ Java NIO引入了选择器的概念，选择器是一个用于监听多个通道
 ### 1. [Overview](./overview.md)
 ### 2. [Channel](./channel.md)
 ### 3. [Buffer](./buffer.md)
-### 4.	[Scatter|Gather](./scatter&gather.md)
+### 4.	[Scatter AND Gather](./scatter&gather.md)
 ### 5.	[Channel to Channel Transfers](./channel2channel.md)
 ### 6.	[Selector](./selector.md)
 ### 7.	[FileChannel](./filechannel.md)
