@@ -1,5 +1,12 @@
 # channel
 
+目录
+- [channel 简介](channel-简介)
+- [channel 的实现类](channel-的实现类)
+- [channel 的基本示例](channel-的基本示例)
+
+### channel 简介
+
 channel类似流，但是又有些许不同:
 - 一个 channel 既可读，亦可写，但是流都是单向的(只读|只写)
 - 通道可以异步读写
