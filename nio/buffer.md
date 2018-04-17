@@ -16,8 +16,8 @@
 - [clear() 和 compact() 方法](#clear-和-compact-方法)
 - [mark() 和 reset() 方法](#mark-和-reset-方法)
 - [equals() 和 compareTo() 方法](#equals-和-compareto-方法)
-  - [equals 方法](#equals-方法)
-  - [compareTo 方法](#compareto-方法)
+  - [equals() 方法](#equals-方法)
+  - [compareTo() 方法](#compareto-方法)
 
 java NIO 中的buffer是用来与NIO中的channel进行交互的。如你所知，数据可从channel读取到buffer，也可将buffer中的数据写入到channel。
 
