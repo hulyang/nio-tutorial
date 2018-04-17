@@ -1,10 +1,29 @@
-# Buffer 
+# Buffer
+
+目录
+- [buffer 的基本使用](#buffer-的基本使用)
+- [buffer 的 capacity、position、limit、mark](#buffer-的-capacitypositionlimitmark)
+  - [capacity](#capacity)
+  - [position](#position)
+  - [limit](#limit)
+  - [mark](#mark)
+- [Buffer 类型](#buffer-类型)
+- [Buffer 的分配](#buffer-的分配)
+- [Buffer 写操作](#buffer-写操作)
+- [flip() 方法](#flip()-方法)
+- [Buffer 读操作](#buffer-读操作)
+- [rewind() 方法](#rewind()-方法)
+- [clear() 和 compact() 方法](#clear()-和-compact()-方法)
+- [mark() 和 reset() 方法](#mark()-和-reset()-方法)
+- [equals() 和 compareTo() 方法](#equals()-和-compareto()-方法)
+  - [equals方法](#equals()-方法)
+  - [compareTo方法](#compareto()-方法)
 
 java NIO 中的buffer是用来与NIO中的channel进行交互的。如你所知，数据可从channel读取到buffer，也可将buffer中的数据写入到channel。
 
 buffer实际上就是一块你可以先写入数据，然后再从中读取数据的内存区域。这块内存区域被封装成了NIO Buffer对象，其提供了很多方法来方便你操作这块内存区域。
 
-### buffer 的基本使用：
+### buffer 的基本使用
 
 使用一个buffer去读写数据，通常分为以下4个小步骤：
 
@@ -192,13 +211,91 @@ public final Buffer rewind() {
 
 ### clear() 和 compact() 方法
 
+一旦你从buffer中读取了数据后，你可以调用clear()方法或者compact()方法，来确保buffer被能再次写入。
 
+如果你调用clear()方法，position将会设置为0，limit将会设置为capacity的值。换句话说就是buffer被clear后，其实buffer中所保存的数据是没有被清除的，仅仅是改变了能再次写入数据的标志位。
+
+当我们调用clear()方法时，如果buffer中有数据没有读取，那些数据将会被遗忘(并没被清除)，意味着你不再能知道哪里的数据被读了，哪里的数据还没有度。
+
+所以如果buffer中还有未读的数据，并且等会需要读取，但是现在得先往buffer中写入部分数据，此时应该调用compact()而非clear()
+
+compact()方法将所有的未读数据拷贝到buffer首部，然后将position设置为最后一个未读元素的下一个位置，limit属性还是会像clear()方法一样设置为capacity的值。现在buffer便可写入新数据，而且不会覆盖未读的数据。
+
+教程中说了这么多，我们来直接贴代码，等会做个简单的小结。
+
+clear()方法：
+
+```
+public final Buffer clear() {
+    position = 0;
+    limit = capacity;
+    mark = -1;
+    return this;
+}
+```
+
+compact()方法 (Buffer类中并未定义compact()方法，此为HeapByteBuffer类中该方法的实现的，注释为本人添加)：
+
+```
+public ByteBuffer compact() {
+    // ByteBuffer中是使用一个名为hb的byte数组做数据存储的，remaining()方法返回的是 limit-position，即未读的数据长度
+    System.arraycopy(hb, ix(position()), hb, ix(0), remaining()); // 先将未读部分拷贝到存储区域首部
+    position(remaining()); // 修改position值为未读数据的下一位
+    limit(capacity()); // 将limit值改为capacity的值
+    discardMark(); // 清除mark，即mark=-1
+    return this;
+}
+```
+
+简单来说clear()和compact()都可以将buffer从读模式下切换到写模式，compact()会将未读的数据移到buffer首都等待下次读取，再次写入数据会接着这部分后面继续写，而clear()不会保留未读数据，再次写入数据时会将未读部分覆盖。而不管compact()和clear()方法都只是仅仅移动position和limit而已，并没有去清空buffer中所保留的数据。
 
 ### mark() 和 reset() 方法
 
+你可以通过调用buffer.mark()方法标记当前的位置，然后过后可以通过buffer.reset()方法来让position返回原先标记的位置。以下为示例代码：
 
+```
+buffer.mark();  // public final ByteBuffer mark() { mark = position; return this;}
+
+//call buffer.get() a couple of times, e.g. during parsing.
+
+buffer.reset();  //set position back to mark.   
+```
+
+mark()很简单，就是将position值赋值给mark教程中的解释也很简洁明了，我在示例代码中通过注释加入了方法实现，就不再贴出源码中的实现了。
+reset()方法也很简单，就是将mark再赋值给position，只不过多了一遍mark合法性的检查。代码如下(jdk1.8)：
+```
+public final Buffer reset() {
+    int m = mark;
+    if (m < 0)
+        throw new InvalidMarkException();
+    position = m;
+    return this;
+}
+```
 
 ### equals() 和 compareTo() 方法
+
+有时候你可能需要调用equals()或者compareTo()来比较两个buffer。
+
+##### equals() 方法
+
+equals()方法继承自Object类，compareTo()方法是因为实现了Comparable接口。其实现过程都是在各自的子类中做具体实现的，但是实现逻辑都是一致。所以下面我们不会贴出源码，仅仅阐述比较的逻辑。
+
+两个buffer相等的条件为：
+
+1. 他们类型相同
+2. 他们所剩余的未读数据量相同
+3. 他们所剩的未读数据一一相等
+
+如你所见，equals()方法仅仅对比了buffer中的部分内容，并没比较buffer中的每一个元素。事实上只是比较了buffer中未读的那部分。
+
+##### compareTo() 方法
+
+compareTo()方法也是比较两个buffer中的未读部分，应用在一些需要排序的场景下。
+<br>当满足下列条件时我们一个buffer比另外一个buffer要小：
+
+1. 当两个buffer中相对应位置的未读数据不等时，数据小的那个buffer要小
+2. 当所有相对位置的未读数据都相等时，先耗尽的那个buffer要小(即未读部分的数据量小的个buffer要小)
 
 
 
