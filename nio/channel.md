@@ -1,9 +1,9 @@
 # channel
 
 目录
-- [channel 简介](channel-简介)
-- [channel 的实现类](channel-的实现类)
-- [channel 的基本示例](channel-的基本示例)
+- [channel 简介](#channel-简介)
+- [channel 的实现类](#channel-的实现类)
+- [channel 的基本示例](#channel-的基本示例)
 
 ### channel 简介
 
