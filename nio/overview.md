@@ -1,5 +1,5 @@
 # 概述
-#### [channel 和 buffer](#Channel-和-Buffer)
+#### [channel 和 buffer](#channel-和-buffer)
   java nio 包目录大概如下:
 	
 	nio
