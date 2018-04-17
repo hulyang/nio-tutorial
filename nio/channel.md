@@ -1,6 +1,6 @@
-# 通道 channel
+# channel
 
-通道(channel) 类似流，但是又有些许不同:
+channel类似流，但是又有些许不同:
 - 一个 channel 既可读，亦可写，但是流都是单向的(只读|只写)
 - 通道可以异步读写
 - 通道总是读写到 buffer 
