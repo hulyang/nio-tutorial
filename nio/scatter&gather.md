@@ -1,4 +1,4 @@
-# 分散和聚合 Scatter AND Gather
+# Scatter AND Gather
 
 目录
 - [Scatter&Gather 简介](#scattergather-简介)
