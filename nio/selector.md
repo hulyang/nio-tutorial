@@ -112,20 +112,184 @@ int interestSet = SelectionKey.OP_READ | SelectionKey.OP_WRITE;
 
 ##### Interest Set
 
+如[注册Channel到Selector](#注册channel到selector)中所述，interest set 是你选择监听的事件集。你可以像下面这样通过SelectionKey去读写这个事件集：
 
+```
+int interestSet = selectionKeys.interestOps();
+
+boolean isInterestAccept = (interestSet & SelectionKey.OP_ACCEPT) == SelectionKey.OP_ACCEPT;
+boolean isInterestConnect = (interestSet & SelectionKey.OP_ACCEPT) == SelectionKey.OP_CONNECT;
+boolean isInterestRead = (interestSet & SelectionKey.OP_ACCEPT) == SelectionKey.OP_READ;
+boolean isInterestWrite = (interestSet & SelectionKey.OP_ACCEPT) == SelectionKey.OP_WRITE;
+```
+
+> 原文中示例代码有点问题，我做了点改正。
+
+如你所见，你可以用"&"(按位与)的方式去处理interest set和SelectionKey中的事件常量，去判断是否监听了某一事件。
 
 ##### Ready Set
 
+ready  set 是已经准备就绪的事件集。在一次Selection你可能会首先访问这个ready set。Selection将在后面的章节中做具体解释，你可以像下面这样访问ready set：
+
+```
+int readySet = selectionKey.readyOps();
+```
+
+你可以同上面interest set中一样的方式来查看哪些事件已经准备就绪。但是，你也可以用以下4个方法来代替，他们都是返回boolean值：
+
+```
+selectionKey.isAcceptable();    // return (readyOps() & OP_ACCEPT) != 0
+selectionKey.isConnectable();   // return (readyOps() & OP_CONNECT) != 0;
+selectionKey.isReadable();      // return (readyOps() & OP_READ) != 0;
+selectionKey.isWritable();      // return (readyOps() & OP_WRITE) != 0;
+```
+
+> 我在方法后面加了注释为方法的实现，其实跟我们上面做的差不多。
+
 ##### Channel + Selector
+
+从SelectionKey中访问Channel和Selector是很频繁的，你可以通过一下方式实现：
+
+```
+Channel channel = selectionKey.channel();
+
+Selector selector = selectionKey.selector();
+```
 
 ##### Attaching Objects
 
+你可以将一个对象attach给selectionKey，这样你能更好地识别某个特定的channel，又或者附加给channel更多的信息。例如你可以将与channel一同使用的buffer，或是包含更多聚合信息的对象attach上去。一下是如何attach对象的示例：
+
+```
+selectionKey.attach(theObject);
+Object attachObj = selectionKey.attachment();
+```
+
+你也可以在注册channel到selector时，通过register()方法就将对象attach上去，下面是示例代码：
+
+```
+SelectionKey selectionKey = channel.register(selector, SelecitonKey.OP_READ, theObject);
+```
+
 ### 通过Selector选择Channel
+
+一旦你将一个或多个channel注册到同一个selector上以后，你可以调用某一select()方法，这些方法将返回有监听事件(accept、connect、read、write)准备就绪的channel。换句话说，如果你监听的channel中有read事件准备就绪，你就会通过调用select()方法返回一个read准备就绪的channel。
+
+> 这里有点问题，select() 方法返回值为int，返回的是有时间准备就绪的channel的数量...并不是直接放回channel。
+
+以下是几个select()方法：
+
+```
+int select();
+int select(long timeout);
+int selectNow();
+```
+
+select() 方法将会阻塞你注册的channel中有监听的事件准备就绪。
+select(long timeout)和select()方法一样会阻塞，但是只是阻塞到你通过参数设置的超时时间(毫秒)的最大值为止。
+selectNow() 不会阻塞，无论channel准备就绪与否都会立即返回。
+
+select()方法返回的int值告诉我们有多少个channel已经准备就绪。这仅仅是返回在你上次调用select()后有多少channel准备就绪。如果你调用select()方法，并且返回值为1，说明有一个channel准备就绪，然后你在调用一次select()方法，并且又有一个channel准备就绪了，这次返回值还是1。如果你对第一个准备就绪的channel什么事都没做的话，你就有2个已经准备就绪的channel，但是只有在两次调用select()之间只有一个channel准备就绪。
 
 ##### selectedKeys()
 
+一旦你调用了某个select()方法，并有正确的返回值，那就说明有channel已经准备就绪。你可以通过调用selectedKeys()方法返回的"select key set"来访问这些准备就绪的channel，以下为示例：
+
+```
+Set<SelectionKey> selectedKeys = selector.selectedKeys();
+```
+
+当你通过channel.register()方法将channel注册到selector后，会返回一个SelectionKey，这个key记录着这个channel注册到那个selector。你可调用selectedKeys()方法来访问这些key。
+
+你可迭代这一selected key set来访问准备就绪的channel，以下为代码示例：
+
+```
+Set<SelectionKey> selectedKeys = selector.selectedKeys();
+
+Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
+
+while(keyIterator.hasNext()) {
+    
+    SelectionKey key = keyIterator.next();
+
+    if(key.isAcceptable()) {
+        // a connection was accepted by a ServerSocketChannel.
+
+    } else if (key.isConnectable()) {
+        // a connection was established with a remote server.
+
+    } else if (key.isReadable()) {
+        // a channel is ready for reading
+
+    } else if (key.isWritable()) {
+        // a channel is ready for writing
+    }
+
+    keyIterator.remove();
+}
+```
+
+循环迭代selected key set中的key，然后通过key去判断其应用的channel是否有事件准备就绪。
+
+注意每次循环最后的keyIterator.remove()，Selector是不会将selectionKey从selected key set中移除的。你得自己在处理完那个channel后来自己完成这件事。当下次有channel准备就绪，Selector将会再次将他加入到selected key set中去。
+
+通过SelectionKey.channel()方法返回的channel，你需要自己去将他转型成你指定的那个类型，如ServerSocketChannel、SocketChannel等。
+
 ### wakeUp()
+
+一个线程调用了select()方法导致线程阻塞，即使没有channel准备就绪，你也想马上退出select()方法。这时就需要在另外一个线程中使用之前调用select()方法的那个selector去调用Selector.wakeUp()方法，阻塞的select()方法将会立即返回。
+
+如果某个线程调用了wakeUp()方法，但是当时没有线程阻塞在select()中，以后有线程再去调用select()方法将会立即返回。
 
 ### close()
 
+如果你对selector的处理已经完成，你可以调用他的close()方法来关闭它。这个方法将关闭selector以及释放注册到selector中的所有selectionKey，但是注册的channel并不会关闭。
+
 ### 完整示例
+
+以下是一个打开selector、为其注册channel(channel的初始化省略)、并持续监控selector中4个事件(accept,connect,read,write)是否准备就绪的完整示例：
+
+```
+Selector selector = Selector.open();
+
+channel.configureBlocking(false);
+
+SelectionKey key = channel.register(selector, SelectionKey.OP_READ);
+
+
+while(true) {
+
+  int readyChannels = selector.select();
+
+  if(readyChannels == 0) continue;
+
+
+  Set<SelectionKey> selectedKeys = selector.selectedKeys();
+
+  Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
+
+  while(keyIterator.hasNext()) {
+
+    SelectionKey key = keyIterator.next();
+
+    if(key.isAcceptable()) {
+        // a connection was accepted by a ServerSocketChannel.
+
+    } else if (key.isConnectable()) {
+        // a connection was established with a remote server.
+
+    } else if (key.isReadable()) {
+        // a channel is ready for reading
+
+    } else if (key.isWritable()) {
+        // a channel is ready for writing
+    }
+
+    keyIterator.remove();
+  }
+}
+```
+
+参考：
+<br><http://tutorials.jenkov.com/java-nio/selectors.html>
+<br><http://ifeve.com/selectors/>
