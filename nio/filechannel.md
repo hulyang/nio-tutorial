@@ -6,9 +6,9 @@
 - [FileChannel的数据写入](#filechannel的数据写入)
 - [FileChannel的关闭](#filechannel的关闭)
 - [FileChannel Position](#filechannel-position)
-- [FileChannel Size](#filechanel-size)
-- [FileChannel Truncate](#filechanel-truncate)
-- [FileChannel Force](#filechanel-force)
+- [FileChannel Size](#filechannel-size)
+- [FileChannel Truncate](#filechannel-truncate)
+- [FileChannel Force](#filechannel-force)
 
 ### FileChannel的打开
 
