@@ -2,10 +2,10 @@
 
 目录
 - [简介](#简介)
-- [为什么使用Selector](#为什么使用Selector)
-- [Selector的创建](#Selector的创建)
-- [注册Channel到Selector](#注册Channel到Selector)
-- [SelectionKey](#SelectionKey)
+- [为什么使用Selector](#为什么使用selector)
+- [Selector的创建](#selector的创建)
+- [注册Channel到Selector](#注册channel到selector)
+- [SelectionKey](#selectionkey)
   - [Interest Set](#interest-set)
   - [Ready Set](#ready-set)
   - [Channel + Selector](#channel-+-selector)
