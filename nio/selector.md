@@ -1,7 +1,7 @@
 # Selector
 
 目录
-- [简介](#简介)
+- [Selector 简介](#selector-简介)
 - [为什么使用Selector](#为什么使用selector)
 - [Selector的创建](#selector的创建)
 - [注册Channel到Selector](#注册channel到selector)
@@ -16,9 +16,7 @@
 - [close()](#close)
 - [完整示例](#完整示例)
 
-<hr>
-
-### 简介
+### Selector 简介
 
 ### 为什么使用Selector
 
