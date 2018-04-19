@@ -1,4 +1,4 @@
-# channel
+# Channel
 
 目录
 - [channel 简介](#channel-简介)
