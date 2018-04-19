@@ -76,12 +76,11 @@ buffer实际上就是一块你可以先写入数据，然后再从中读取数�
 - 限制 Limit
 - 位置 Mark
 
-Buffer源码中关于这4个成属性，有行很重要的注释，我觉得有必要列出来的，这也方便大家对buffer中这四个属性能有个更好的理解,注释内容为：
+> Buffer源码中关于这4个成属性，有行很重要的注释，我觉得有必要列出来的，这也方便大家对buffer中这四个属性能有个更好的理解,注释内容为：
 
-```
-Invariants: mark <= position <= limit <= capacity
-```
-这行注释诠释了这四个属性永远满足的一个条件。buffer中很多方法(基本都为为属性赋值的方法)都会检查这一条件。
+> Invariants: mark <= position <= limit <= capacity
+
+> 这行注释诠释了这四个属性永远满足的一个条件。buffer中很多方法(基本都为为属性赋值的方法)都会检查这一条件。
 
 position和limit的含义取决buffer是在读还是写模式下。
 capacity的含义不会因buffer的模式而改变，都是表示buffer的总容量
@@ -165,7 +164,7 @@ flip()将buffer从写模式切换到读模式，调用flip()方法将会把posit
 
 换句话说就是position现在为读的位置，而limit为写入buffer的数据总量，即可以被读取的数据总数。
 
-原教程讲的比较拗口，感觉这里不如直接贴个源码简单明了(jdk1.8)：
+> 原教程讲的比较拗口，感觉这里不如直接贴个源码简单明了(jdk1.8)：
 
 ```
 public final Buffer flip() {
@@ -176,7 +175,7 @@ public final Buffer flip() {
 }
 ```
 
-源码中明显看出clip()除了改变了limit和position，另外将mark重新设置为了-1(即无标记位置的状态)
+> 源码中明显看出clip()除了改变了limit和position，另外将mark重新设置为了-1(即无标记位置的状态)
 
 ### Buffer 读操作
 
@@ -203,7 +202,7 @@ get()方法有很多其他版本，允许你以不同方式从buffer中读取数
 
 buffer.rewind()方法将position设置成0，所以你可以重新冲buffer中读取数据，rewind()方法是不改变limit的，因此limit仍然表示你可以从buffer中读取多少数据。
 
-以上是对于方法的解释，基本上讲的挺明白的了，不过还是直接上源码更加清晰(jdk1.8)：
+> 以上是对于方法的解释，基本上讲的挺明白的了，不过还是直接上源码更加清晰(jdk1.8)：
 
 ```
 public final Buffer rewind() {
@@ -212,7 +211,8 @@ public final Buffer rewind() {
     return this;
 }
 ```
-源码中明显看出rewind()除了将position倒退回去，另外将mark重新设置为了-1(即无标记位置的状态)
+
+> 源码中明显看出rewind()除了将position倒退回去，另外将mark重新设置为了-1(即无标记位置的状态)
 
 ### clear() 和 compact() 方法
 
@@ -226,9 +226,9 @@ public final Buffer rewind() {
 
 compact()方法将所有的未读数据拷贝到buffer首部，然后将position设置为最后一个未读元素的下一个位置，limit属性还是会像clear()方法一样设置为capacity的值。现在buffer便可写入新数据，而且不会覆盖未读的数据。
 
-教程中说了这么多，我们来直接贴代码，等会做个简单的小结。
+> 教程中说了这么多，我们来直接贴代码，等会做个简单的小结。
 
-clear()方法：
+> clear()方法：
 
 ```
 public final Buffer clear() {
@@ -239,7 +239,7 @@ public final Buffer clear() {
 }
 ```
 
-compact()方法 (Buffer类中并未定义compact()方法，此为HeapByteBuffer类中该方法的实现的，注释为本人添加)：
+> compact()方法 (Buffer类中并未定义compact()方法，此为HeapByteBuffer类中该方法的实现的，注释为本人添加)：
 
 ```
 public ByteBuffer compact() {
@@ -252,7 +252,7 @@ public ByteBuffer compact() {
 }
 ```
 
-简单来说clear()和compact()都可以将buffer从读模式下切换到写模式，compact()会将未读的数据移到buffer首都等待下次读取，再次写入数据会接着这部分后面继续写，而clear()不会保留未读数据，再次写入数据时会将未读部分覆盖。而不管compact()和clear()方法都只是仅仅移动position和limit而已，并没有去清空buffer中所保留的数据。
+> 简单来说clear()和compact()都可以将buffer从读模式下切换到写模式，compact()会将未读的数据移到buffer首都等待下次读取，再次写入数据会接着这部分后面继续写，而clear()不会保留未读数据，再次写入数据时会将未读部分覆盖。而不管compact()和clear()方法都只是仅仅移动position和limit而已，并没有去清空buffer中所保留的数据。
 
 ### mark() 和 reset() 方法
 
@@ -266,7 +266,7 @@ buffer.mark();  // public final ByteBuffer mark() { mark = position; return this
 buffer.reset();  //set position back to mark.   
 ```
 
-mark()很简单，就是将position值赋值给mark教程中的解释也很简洁明了，我在示例代码中通过注释加入了方法实现，就不再贴出源码中的实现了。
+> mark()很简单，就是将position值赋值给mark教程中的解释也很简洁明了，我在示例代码中通过注释加入了方法实现，就不再贴出源码中的实现了。
 reset()方法也很简单，就是将mark再赋值给position，只不过多了一遍mark合法性的检查。代码如下(jdk1.8)：
 ```
 public final Buffer reset() {
@@ -284,7 +284,7 @@ public final Buffer reset() {
 
 ##### equals() 方法
 
-equals()方法继承自Object类，compareTo()方法是因为实现了Comparable接口。其实现过程都是在各自的子类中做具体实现的，但是实现逻辑都是一致。所以下面我们不会贴出源码，仅仅阐述比较的逻辑。
+> equals()方法继承自Object类，compareTo()方法是因为实现了Comparable接口。其实现过程都是在各自的子类中做具体实现的，但是实现逻辑都是一致。所以下面我们不会贴出源码，仅仅阐述比较的逻辑。
 
 两个buffer相等的条件为：
 
