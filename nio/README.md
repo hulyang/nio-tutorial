@@ -39,4 +39,4 @@ Java NIO引入了选择器的概念，选择器是一个用于监听多个通道
 
 
 
-原教程地址:<http://tutorials.jenkov.com/java-nio/index.html>
+参考:<http://tutorials.jenkov.com/java-nio/index.html>
