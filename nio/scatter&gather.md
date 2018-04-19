@@ -53,4 +53,6 @@ channel.write(bufferArray);
 
 buffer数组作为参数传递给writer()方法，将会按照数组中元素顺序依次向channel中写入buffer中的内容。只有position和limit之间的数据内容(remain部分)会被写入。因此，若一个buffer的capacity为128字节，但是仅包含58个字节，那么就只会向channel中写入58个字节。因此，和scattering read 不同，gathering write 在处理消息各部分大小不确定时仍然适用。
 
-
+参考：
+<br><http://tutorials.jenkov.com/java-nio/scatter-gather.html>
+<br><http://ifeve.com/java-nio-scattergather/>
