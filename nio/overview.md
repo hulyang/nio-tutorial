@@ -7,7 +7,7 @@
 
 ### NIO 简介
 
-  java nio 包目录大概如下:
+>  java nio 包目录大概如下:
 	
 	nio
 	├── channels	selector以及各种channel
