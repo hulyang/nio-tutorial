@@ -25,3 +25,7 @@
 ### FileChannel Truncate
 
 ### FileChannel Force
+
+参考：
+<br><http://tutorials.jenkov.com/java-nio/file-channel.html>
+<br><http://ifeve.com/file-channel/>
