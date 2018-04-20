@@ -55,6 +55,4 @@ ServerSocketChannel 可用像 web 服务那样，监听新进来的 TCP 连接�
 
 这里注意 buf.flip() 的调用，首先从 Channel 中读取数据到 Buffer ，再调用 flip() 去切换状态，然后才能读取 buffer 中缓存的数据，关于 Buffer 的更多细节将在后续章节中进行介绍。
 
-参考：
-<br><http://tutorials.jenkov.com/java-nio/channels.html>
-<br><http://ifeve.com/channels/>
+参考：<http://tutorials.jenkov.com/java-nio/channels.html>
