@@ -112,6 +112,4 @@ force()方法有个boolean类型的参数，指明是否需要将文件的元数
 channel.force(true);
 ```
 
-参考：
-<br><http://tutorials.jenkov.com/java-nio/file-channel.html>
-<br><http://ifeve.com/file-channel/>
+参考：<http://tutorials.jenkov.com/java-nio/file-channel.html>
