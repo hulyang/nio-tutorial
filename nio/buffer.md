@@ -304,6 +304,4 @@ compareTo()方法也是比较两个buffer中的未读部分，应用在一些需
 
 
 
-参考：
-<br><http://tutorials.jenkov.com/java-nio/buffers.html>
-<br><http://ifeve.com/buffers/>
+参考：<http://tutorials.jenkov.com/java-nio/buffers.html>
