@@ -290,6 +290,4 @@ while(true) {
 }
 ```
 
-参考：
-<br><http://tutorials.jenkov.com/java-nio/selectors.html>
-<br><http://ifeve.com/selectors/>
+参考：<http://tutorials.jenkov.com/java-nio/selectors.html>
