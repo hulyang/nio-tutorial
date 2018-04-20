@@ -70,9 +70,8 @@ ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
 serverSocketChannel.socket().bind(new InetSocketAddress(9999));
 serverSocketChannel.configureBlocking(false);
 
-while(true){
-    SocketChannel socketChannel =
-            serverSocketChannel.accept();
+while(true) {
+    SocketChannel socketChannel = serverSocketChannel.accept();
 
     if(socketChannel != null){
         //do something with socketChannel...
