@@ -49,6 +49,4 @@ fromChannel.transferTo(position. count, toChannel);
 SocketChannel中存在的问题，transferTo()方法也同样存在。SocketChannel在实现数据传输时，当buffer被填满后传输将会停止。
 > 教程中这里出现SocketChannel个人感觉不是很合适，这里可以先不要去管SocketChannel，更不用去理解SocketChannel中有啥问题。我们只需要理解调用transferTo()时，如果目标被装满了(toChannel)，那么数据传输就会停止，即使还有数据没传输完。
 
-参考：
-<br><http://tutorials.jenkov.com/java-nio/channel-to-channel-transfers.html>
-<br><http://ifeve.com/java-nio-channel-to-channel/>
+参考：<http://tutorials.jenkov.com/java-nio/channel-to-channel-transfers.html>
