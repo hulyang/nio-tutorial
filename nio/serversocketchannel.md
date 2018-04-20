@@ -76,7 +76,7 @@ while(true){
 
     if(socketChannel != null){
         //do something with socketChannel...
-        }
+    }
 }
 ```
 
