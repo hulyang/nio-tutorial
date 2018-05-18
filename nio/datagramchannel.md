@@ -71,3 +71,5 @@ int bytesRead = channel.read(buf);
 ```
 int bytesWrite = channel.write(buf);
 ```
+
+参考：<http://tutorials.jenkov.com/java-nio/datagram-channel.html>
