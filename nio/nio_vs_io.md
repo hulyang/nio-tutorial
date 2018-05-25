@@ -32,7 +32,7 @@
 
 JAVA NIO 与IO 最大的不同就是IO是面向流的，而NIO是面向缓冲的。这又意味着什么呢？
 
-JAVA IO面向流，就意味着
+JAVA IO面向流，就意味着你从留中读取数据后，做什么操作取决你你自己，他不提供任何数据缓存。此外，你不可以在流中前后移动数据
 
 ### 阻塞与非阻塞IO
 ### 选择器Selector
@@ -40,3 +40,5 @@ JAVA IO面向流，就意味着
 ##### API的调用
 ##### 数据处理
 ### 总结
+
+参考：<http://tutorials.jenkov.com/java-nio/nio-vs-io.html>
