@@ -92,7 +92,14 @@ String phoneLine  = reader.readLine();
 
 ![](./pic/nio-vs-io-1.png)
 
-NIO的实现
+NIO的实现会有所不同，下面是一个简单的示例：
+
+```
+ByteBuffer buffer = ByteBuffer.allocate(48);
+int byteRead = inChannel.read(buffer);
+```
+
+注意第二行，将数据从channel读取到buffer中。当那个方法调用并返回后，你并不知道是不是你所需的全部数据都已经在buffer中。你所知道的只是buffer中含有一些数据。这就导致数据处理有些困难。
 
 ### 总结
 
