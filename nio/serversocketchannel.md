@@ -1,6 +1,5 @@
 # ServerSocketChannel
 
-目录
 - [ServerSocketChannel 简介](#serversocketchannel-简介)
 - [ServerSocketChannel的打开](#serversocketchannel的打开)
 - [ServerSocketChannel的关闭](#serversocketchannel的关闭)
