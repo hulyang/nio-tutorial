@@ -1,6 +1,5 @@
 # Channel To Channel Transfers
 
-目录
 - [transfer 简介](#transfer-简介)
 - [transferFrom()](#transferfrom)
 - [transferTo()](#transferto)
