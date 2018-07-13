@@ -1,6 +1,5 @@
 # 概述 Overview
 
-目录
 - [NIO 简介](#nio-简介)
 - [Channel 和 Buffer](#channel-和-buffer)
 - [Selector](#selector)
