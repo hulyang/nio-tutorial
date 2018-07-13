@@ -1,6 +1,5 @@
 # Buffer
 
-目录
 - [Buffer 简介](#buffer-简介)
 - [Buffer 的基本使用](#buffer-的基本使用)
 - [Buffer 的 capacity、position、limit、mark](#buffer-的-capacitypositionlimitmark)
