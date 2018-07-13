@@ -1,6 +1,5 @@
 # Selector
 
-目录
 - [Selector 简介](#selector-简介)
 - [为什么使用Selector](#为什么使用selector)
 - [Selector的创建](#selector的创建)
