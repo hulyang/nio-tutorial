@@ -1,6 +1,5 @@
 # DatagramChannel
 
-目录
 - [DatagramChannel 简介](#datagramchannel-简介)
 - [DatagramChannel的打开](#datagramchannel的打开)
 - [接收数据](#接收数据)
