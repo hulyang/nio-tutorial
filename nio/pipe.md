@@ -1,6 +1,5 @@
 # Pipe
 
-目录
 - [Pipe 简介](#pipe-简介)
 - [Pipe的创建](#pipe的创建)
 - [Pipe的写入](#pipe的写入)
