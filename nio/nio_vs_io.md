@@ -101,6 +101,40 @@ int byteRead = inChannel.read(buffer);
 
 注意第二行，将数据从channel读取到buffer中。当那个方法调用并返回后，你并不知道是不是你所需的全部数据都已经在buffer中。你所知道的只是buffer中含有一些数据。这就导致数据处理有些困难。
 
+想象以下，当第一次调用read(buffer)以后，此次调用读入buffer的只有半行，例如："Name: An"，你能处理这样的数据吗？显然不能。你得等到直到一整行数据都被读入buffer中，在此之前，对数据的任何处理都显得毫无意义。
+
+所以，你如何才能知道buffer中已经包含能够处理的所有数据了呢？可惜，你不知道。唯一方法就是去查看buffer中的数据。这样做的结果就是在确定所有数据都存在buffer之前，你得多次检查buffer中的数据。这不仅效率低下，而且会使得程序看起来一片混乱。例如：
+
+```
+ByteBuffer buffer = ByteBuffer.allocate(48);
+
+int bytesRead = inChannel.read(buffer);
+
+while(! bufferFull(bytesRead) ) {
+    bytesRead = inChannel.read(buffer);
+}
+```
+
+bufferFull()方法会不断监测有多少数据被读入buffer，并返回true或false，以表示buffer是不是已经满了，换句话说就是buffer是不是已经准备好被处理了，那就认为buffer已经满了。
+
+bufferFull()方法扫描整个buffer，并且必须保证buffer在bufferFull()方法调用结束时与调用前状态一致。如果不一致，那么下次读入的数据将不能保存在正确的位置上，这不是不可能的，而是必须注意的一个问题。
+
+一旦buffer满了，就表示buffer已经可以被处理了。但如果buffer没满，在特殊情况下，你可能也需要处理其中部分数据。虽然大部分情况下不会这样。
+
+以下是一个data->buffer->ready循环的示意图：
+
+![](./pic/nio-vs-io-2.png)
+
 ### 总结
+
+NIO允许你在单线程(或少量线程)中同时管理多个channel(网络连接或者文件)，但是代价就是解析数据可能回比从阻塞IO中读取到的数据难度要大一些。
+
+如果你需要同时管理数以千计的打开的链接，并且这些链接都只传输少量数据，例如一个聊天服务器，通过NIO实现这项服务可能有一定优势。相似的，如果你与其他电脑之间得保持大量打开的的链接，例如一个P2P网络，使用单个线程去管理你所有的出站链接可能具有一定优势。单线程管理多链接的示意图如下：
+
+![](./pic/nio-vs-io-3.png)
+
+如果你只有几个少量的链接，但是得传输大量数据，占用很大的带宽，可能传统IO服务实现起来会更合适。以下是一个传统IO服务的示意图：
+
+![](./pic/nio-vs-io-4.png)
 
 参考：<http://tutorials.jenkov.com/java-nio/nio-vs-io.html>
