@@ -1,6 +1,5 @@
 # Channel
 
-目录
 - [Channel 简介](#channel-简介)
 - [Channel 的实现类](#channel-的实现类)
 - [Channel 的基本示例](#channel-的基本示例)
