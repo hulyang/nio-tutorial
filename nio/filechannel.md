@@ -1,6 +1,5 @@
 # FileChannel
 
-目录
 - [FileChannel 简介](#filechannel-简介)
 - [FileChannel的打开](#filechannel的打开)
 - [FileChannel的数据读取](#filechannel的数据读取)
