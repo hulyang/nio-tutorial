@@ -38,7 +38,19 @@ public class PathExample {
 
 ##### Absolute Path 的创建
 
-创建一个绝对
+通过调用以文件绝对路径为参数的Paths.get()这一工厂方法创建一个Absolute Path 实例对象。以下为创建一个绝对路径的实例对象的代码示例：
+
+```
+Path path = Paths.get("c:\\data\\myfile.txt");
+```
+
+绝对路径为：c:\data\myfile.txt，在java 的string中，两个\字符是必须的。因为\ 是一个转义字符，表示紧随他的字符需要被转义。通过\\的方式实际上就是告诉编译器这里就是一个\。
+
+上面的地址是一个windows文件地址。在UNIX系统中，绝对路径可能看起来如下：
+
+```
+Path path = Paths.get("/home/jakobjenkov/myfile.txt");
+```
 
 ##### Relative Path 的创建
 ### Path.normalize() 方法
