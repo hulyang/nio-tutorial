@@ -53,6 +53,17 @@ Path path = Paths.get("/home/jakobjenkov/myfile.txt");
 ```
 
 ##### Relative Path 的创建
+
+相对路径是指基于某个路劲指向另外一个文件或目录的路径。将确定路径和相对路径拼接起来就是相对路径对应的绝对路径地址。
+
+JAVA NIO Path Class统一可以使用相对路径。你可以通过调用Paths.get(basePath, relativePath)的方式创建一个相对路径。以下是2个再java中创建相对路径的例子：
+
+```
+Path projects = Paths.get("d:\\data", "projects");
+
+Path file     = Paths.get("d:\\data", "projects\\a-project\\myfile.txt");
+```
+
 ### Path.normalize() 方法
 
 
