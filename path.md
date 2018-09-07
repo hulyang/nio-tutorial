@@ -64,7 +64,84 @@ Path projects = Paths.get("d:\\data", "projects");
 Path file     = Paths.get("d:\\data", "projects\\a-project\\myfile.txt");
 ```
 
+第一个例子创建了一个指向 d:\data\projects文件夹的java Path实例。第二个例子创建了一个指向d:\data\projects\myfile.txt文件的实例。
+
+在使用相对路劲时，有如下两种特殊的字符供你使用：
+
+- .
+- ..
+
+.字符表示的就是当前路径。例如，如果你像下面这样来创建一个相对路径：
+
+```
+Path currentDir = Paths.get(".");
+System.out.println(currentDir.toAbsolutePath());
+```
+
+所创建的java Path实例相应的绝对路径就是这段代码的项目工程目录。
+
+如果.被用在路劲字符串中间，就表示依然是当前路劲下。以下是相应的代码示例：
+
+```
+Path currentDir = Path.get("d:\\data\\projects\\.\\a-project");
+```
+
+这一路径对应的就是：d:\\data\\projects\a-project。
+
+..表示的是父目录或者说上一级目录。以下是响应的代码示例：
+
+```
+Path parentDir = Paths.get("..");
+```
+
+示例中创建的这一path实例对应的路径就是这段代码所在工程目录的父目录。
+
+而当你在路径字符串中间看到..的时候那就是指向当前目录的上一级目录。例如：
+
+```
+String path = "d:\\data\\projects\\a-project\\..\\another-project";
+Path parentDir2 = Paths.get(path);
+```
+
+示例中创建的这一path实例对应的绝对路径为：d:\data\projects\another-project
+
+a-project后面的..将路劲变化为其父目录projects然后再指向其中的another-project目录。
+ 
+.和..也可以组合的使用在双参数的Paths.get()方法中。以下是两个简单的java Paths.get示例：
+ 
+```
+Path path1 = Paths.get("d:\\data\\projects", ".\\a-project");
+
+Path path2 = Paths.get("d:\\data\\projects\\a-project", "..\\another-project");
+```
+
+有很多的JAVA NIO Path类去使用相对路劲的方式，你可以在后续的教程中继续学习。
+ 
 ### Path.normalize() 方法
 
+Path中的normalize()方法可以标准化路径。标准化的意思就是移除路径中所包含的.以及..并最终指向正确的路劲地址。以下是一个nomalize()方法调用的示例：
+
+```
+String originalPath = "d:\\data\\projects\\a-project\\..\\another-project";
+
+Path path1 = Paths.get(originalPath);
+System.out.println("path1 = " + path1);
+
+Path path2 = path1.normalize();
+System.out.println("path2 = " + path2);
+```
+
+以上示例中首先创建了一个包含..的路劲字符串，然后通过这一字符串创建了一个path1实例并将其打印输出。
+
+示例然后调用path1的normalize()方法来返回一个新的Path实例path2，再将返回的这一新的路劲打印输出。
+
+下面是以上示例的输出：
+
+```
+path1 = d:\\data\\projects\\a-project\\..\\another-project
+path2 = d:\\data\\projects\\another-project
+```
+
+如你所见，标准化的路劲是不包含a-project\..这部分的，因为他是多余的，移除的部分加入进去对最终的绝对路劲不会有任何影响。
 
 参考：<http://tutorials.jenkov.com/java-nio/path.html>
