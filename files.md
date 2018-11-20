@@ -281,6 +281,6 @@ try {
 
 ### Files类中的其他方法
 
-总的来说java.nio.file.Files就是一个文件IO的工具类，java.nio.file.Files类中还有很多其他有用的方法，例如创建符号链接，计算文件大小，设置文件权限等，可以自行去阅读JavaDoc去了解这些方法的详细信息。
+java.nio.file.Files类中还有很多其他有用的方法，例如创建符号链接，计算文件大小，设置文件权限等，可以自行去阅读JavaDoc去了解这些方法的详细信息。
 
 参考：<http://tutorials.jenkov.com/java-nio/files.html>
